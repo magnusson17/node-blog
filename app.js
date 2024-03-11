@@ -11,13 +11,11 @@ app.use(express.static('assets'));
 
 // template engine
 app.use(expressLayout);
-app.set('layout', './templates/main');
+app.set('layout', './layouts/main');
 app.set('view engine', 'ejs');
 
-app.get('/', (req, res) => {
-    res.send("HOME");
-});
+app.use('/', require('./server/routes/main'));
 
-app.listen(PORT, () => {
+app.listen(PORT, () => { 
     console.log(`App is running on port ${PORT}`);
 });
