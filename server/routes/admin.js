@@ -14,14 +14,15 @@ const storage = multer.diskStorage({
         cb(null, './uploads');
     },
     filename: function (req, file, cb) {
-        cb(null, file.filename + '-' + Date.now());
+        cb(null, file.fieldname + '-' + Date.now());
     }
 });
 /* uso multer, gli do una destinazione. tale file
 verrà creato nella route una volta usato il middle */
 const upload = multer({ storage: storage });
 const fs = require('fs');
-var path = require('path');
+const path = require('path');
+const bodyParser = require('body-parser');
 
 const adminLayout = '../views/layouts/admin';
 const jwtSecret = process.env.JWT_SECRET;
@@ -142,7 +143,7 @@ router.post('/add-post', authMiddle, upload.single('image'), async (req, res) =>
                 body: req.body.body,
                 image: {
                     data: fs.readFileSync(path.join(__dirname + '/uploads/' + req.file.filename)),
-                    contentType: 'image'
+                    contentType: 'image/jpeg'
                 }
             });
             // await Post.create(newPost);
