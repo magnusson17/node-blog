@@ -1,3 +1,71 @@
+/* VARS */
+:root {
+    /*/ gutters /*/
+    --lateral-gutter: 16vw;
+
+    /*/ colors /*/
+    /* bg */
+    --bg-color-main: #faebd7;
+    --bg-color-secondary: #232323;
+    /* txt */
+    --txt-color-main: #232323;
+    --txt-color-secondary: #faebd7;
+    --txt-color-tertiary: #424242;
+}
+
+/* GENERAL */
+* {
+    box-sizing: border-box;
+}
+
+html,
 body {
-    background-color: antiquewhite;
+    width: 100%;
+    height: 100%;
+    background-color: var(--bg-color-main);
+    color: var(--txt-color-main);
+    font-family: 'Overpass', sans-serif;
+    font-weight: 800;
+    font-style: normal;
+    line-height: normal;
+}
+
+a {
+    position: relative;
+    display: block;
+    text-decoration: none;
+    color: var(--txt-color-main)
+}
+
+/* BOOTSTRAPT */
+.container-fluid {
+    padding-right: 0px;
+    padding-left: 0px;
+    margin-right: var(--lateral-gutter);
+    margin-left: var(--lateral-gutter);
+    width: auto;
+}
+
+/* FONTS */
+.title-small {
+    font-size: 28px;
+}
+.description {
+    font-size: 14px;
+    color: var(--txt-color-tertiary)
+}
+
+/* CUSTOM SIMPLES CLASSES */
+/*/ gutter /*/
+.px_lateral_gutter {
+    padding-right: var(--lateral-gutter);
+    padding-left: var(--lateral-gutter);
+}
+
+/*/ txt /*/
+.txt_color_main {
+    color: var(--txt-color-main);
+}
+.txt_color_secondary {
+    color: var(--txt-color-secondary);
 }

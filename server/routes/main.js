@@ -4,16 +4,16 @@ const Post = require('../models/Post.js');
 
 /**
     * GET
-    * HOME
+    * Pag ALL POSTS
 */
-router.get('/', async (req, res) => {
+router.get('/posts', async (req, res) => {
     try {
         const locals = {
-            title: "NodeJS Blog",
-            description: "Blog created with Node, Express and MongoDB"
+            title: "NodeJS Posts",
+            description: "Posts created with Node, Express and MongoDB"
         }
         /* quanti elems mostrare per pagina */
-        let perPage = 3;
+        let perPage = 10;
         /* req.query.page sto prendendo la url query "page",
         se essa non è presente do 1 di default */
         let page = req.query.page || 1;
@@ -43,15 +43,48 @@ router.get('/', async (req, res) => {
         const nextPage = parseInt(page) + 1;
         const hasNextPage = nextPage <= Math.ceil(count / perPage);
 
-        res.render('index', {
+        res.render('posts', {
             locals,
             data,
             current: page,
+            // nextPage: hasNextPage ? nextPage : '',
             nextPage: hasNextPage ? nextPage : null,
-            currentRoute: '/'
+            currentRoute: '/posts'
         });
 
     } catch (error) {
+        console.log(error);
+    }
+});
+
+/**
+    * GET
+    * HOME
+*/
+router.get('/', async (req, res) => {
+    try {
+        locals = {
+            title: 'home',
+            description: 'Pag home'
+        }
+        res.render('index', { locals, currentRoute: '/index' })
+    } catch(error) {
+        console.log(error);
+    }
+});
+
+/**
+    * GET
+    * Pag ABOUT
+*/
+router.get('/about', async (req, res) => {
+    try {
+        locals = {
+            title: 'About',
+            description: 'Pag About'
+        }
+        res.render('about', { locals, currentRoute: '/about' })
+    } catch(error) {
         console.log(error);
     }
 });
@@ -94,7 +127,8 @@ router.post('/search', async (req, res) => {
                 { body: { $regex: new RegExp(searchNoSpecial, 'i') } }
             ]
         })
-        res.render('search', {locals, data});
+        res.render('search', { locals, data, currentRoute: `/search` });
+        // res.send(searchInput);
     } catch(error) {
         console.log(error);
     }

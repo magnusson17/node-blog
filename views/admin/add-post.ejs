@@ -1,7 +1,8 @@
 <a href="/dashboard">Go Back</a>
 <h2>Add new post</h2>
-<form action="/add-post" method="POST">
+<form action="/add-post" enctype="multipart/form-data" method="POST">
     <input type="text" placeholder="Post title" name="title">
+    <input type="file" name="image" accept="image/*">
     <textarea placeholder="Post body" name="body"></textarea>
     <input type="submit" value="add">
 </form>

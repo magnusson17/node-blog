@@ -10,6 +10,7 @@ const cookieParser = require('cookie-parser');
 const MongoStore = require('connect-mongo');
 const connectDB = require('./server/config/db');
 const { isActiveRoute } = require('./server/helpers/routeHelpers');
+global.rootPath = __dirname;
 
 const app = express();
 const PORT = 3000 || process.env.PORT;

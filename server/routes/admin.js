@@ -6,6 +6,22 @@ const User = require('../models/User.js');
 const bcrypt = require('bcrypt');
 // un aiuto per i cookies
 const jwt = require('jsonwebtoken');
+/* npm i multer per gestire i file
+lo userò come middle */
+const multer = require('multer');
+const storage = multer.diskStorage({
+    destination: function (req, file, cb) {
+        cb(null, './uploads');
+    },
+    filename: function (req, file, cb) {
+        cb(null, file.filename + '-' + Date.now());
+    }
+});
+/* uso multer, gli do una destinazione. tale file
+verrà creato nella route una volta usato il middle */
+const upload = multer({ storage: storage });
+const fs = require('fs');
+var path = require('path');
 
 const adminLayout = '../views/layouts/admin';
 const jwtSecret = process.env.JWT_SECRET;
@@ -117,15 +133,20 @@ router.get('/add-post', authMiddle, async (req, res) => {
  * POST
  * Admin - Add post
  */
-router.post('/add-post', authMiddle, async (req, res) => {
+router.post('/add-post', authMiddle, upload.single('image'), async (req, res) => {
     try {
-        console.log(req.body);
+        console.log(req.file, req.body);
         try {
             const newPost = new Post({
                 title: req.body.title,
-                body: req.body.body
+                body: req.body.body,
+                image: {
+                    data: fs.readFileSync(path.join(__dirname + '/uploads/' + req.file.filename)),
+                    contentType: 'image'
+                }
             });
-            await Post.create(newPost);
+            // await Post.create(newPost);
+            await newPost.save();
             res.redirect('/dashboard');
         } catch(error) {
             console.log(error);

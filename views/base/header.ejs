@@ -1,3 +1,8 @@
-<a href="/" class="<%= isActiveRoute('/', currentRoute) %>">HOME</a>
-<a href="/about" class="<%= isActiveRoute('/about', currentRoute) %>">ABOUT</a>
-<a href="/contact" class="<%= isActiveRoute('/contact', currentRoute) %>">CONTACT</a>
+<header class="header d-flex justify-content-center align-items-center">
+    <ul class="d-flex">
+        <li><a href="/" class="txt_color_secondary <%= isActiveRoute('/', currentRoute) %>">HOME</a></li>
+        <li><a href="/posts" class="txt_color_secondary <%= isActiveRoute('/posts', currentRoute) %>">POSTS</a></li>
+        <li><a href="/about" class="txt_color_secondary <%= isActiveRoute('/about', currentRoute) %>">ABOUT</a></li>
+        <li><a href="/contact" class="txt_color_secondary <%= isActiveRoute('/contact', currentRoute) %>">CONTACT</a></li>
+    </ul>
+</header>
